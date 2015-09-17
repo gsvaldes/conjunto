@@ -1,16 +1,14 @@
-<html>
-    <head>
-        <title>Conjunto</title>
-    <body>
-        <h1>Conjunto</h1>
-        <div>
-            {% for song in songs %}
-            <div>
+{% extends "songs/base.html" %}
+
+{% block content %}
+    {% for song in songs %}
+        <div class="song">
+            <div class="date">
                 <p>published: {{song.published_date }}</p>
-                <h1><a href="">{{ song.title }} </a></h1>
-                <p>{{ song.text|linebreaks }}</p>
-             </div>
-            {% endfor %}
+            </div>
+            <h1><a href="{% url "song_detail" pk=song.pk %}">{{ song.title }} </a></h1>
+            <p>{{ song.text|linebreaks }}</p>
         </div>
-    </body>
-</html>
+    {% endfor %}
+{% endblock content %}
+
