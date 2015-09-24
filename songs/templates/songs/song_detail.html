@@ -1,0 +1,13 @@
+{% extends "songs/base.html" %}
+
+{% block content %}
+    <div class="song">
+        {% if song.published_date %}
+            <div class="date">
+                {{ song.published_date }}
+            </div>
+        {% endif %}
+        <h1>{{ song.title }}</h1>
+        <p>{{ song.text|linebreaks }}</p>
+    </div>
+{% endblock %}
