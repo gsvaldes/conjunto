@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 from .forms import SongForm
 from .models import Song
 
@@ -14,6 +15,7 @@ def song_detail(request, pk):
 	return render(request, 'songs/song_detail.html', {'song': song})
 
 
+@login_required
 def song_new(request):
     if request.method =="POST":
         form = SongForm(request.POST)
@@ -28,17 +30,20 @@ def song_new(request):
     return render(request, 'songs/song_edit.html', {'form': form})
 
 
+@login_required
 def song_draft_list(request):
 	songs = Song.objects.filter(published_date__isnull=True).order_by('created_date')
 	return render(request, 'songs/song_draft_list.html', {'songs': songs})
 
 
+@login_required
 def song_publish(request, pk):
 	song = get_object_or_404(Song, pk=pk)
 	song.publish()
 	return redirect('songs.views.song_detail', pk=pk)
 
 
+@login_required
 def song_edit(request, pk):
 	song = get_object_or_404(Song, pk=pk)
 	if request.method == 'POST':
@@ -54,6 +59,7 @@ def song_edit(request, pk):
 	return render(request, 'songs/song_edit.html', {'form': form})
 
 
+@login_required
 def song_remove(request, pk):
 	song = get_object_or_404(Song, pk=pk)
 	song.delete()
