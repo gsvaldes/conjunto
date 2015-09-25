@@ -26,3 +26,35 @@ def song_new(request):
     else:      
         form = SongForm()
     return render(request, 'songs/song_edit.html', {'form': form})
+
+
+def song_draft_list(request):
+	songs = Song.objects.filter(published_date__isnull=True).order_by('created_date')
+	return render(request, 'songs/song_draft_list.html', {'songs': songs})
+
+
+def song_publish(request, pk):
+	song = get_object_or_404(Song, pk=pk)
+	song.publish()
+	return redirect('songs.views.song_detail', pk=pk)
+
+
+def song_edit(request, pk):
+	song = get_object_or_404(Song, pk=pk)
+	if request.method == 'POST':
+		form = SongForm(request.POST, instance=song)
+		if form.is_valid():
+			song = form.save(commit=False)
+			song.author = request.user
+			song.published_date = timezone.now()
+			song.save()
+			return redirect('songs.views.song_detail', pk=song.pk)
+	else:
+		form = SongForm(instance=song)
+	return render(request, 'songs/song_edit.html', {'form': form})
+
+
+def song_remove(request, pk):
+	song = get_object_or_404(Song, pk=pk)
+	song.delete()
+	return redirect('songs.views.song_list')

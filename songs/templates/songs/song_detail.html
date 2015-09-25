@@ -6,7 +6,11 @@
             <div class="date">
                 {{ song.published_date }}
             </div>
+        {% else %}
+            <a class="btn btn-default" href="{% url 'songs.views.song_publish' pk=song.pk %}">Publish</a>
         {% endif %}
+        <a class="btn btn-default" href="{% url 'song_edit' pk=song.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a class="btn btn-default" href="{% url 'song_remove' pk=song.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
         <h1>{{ song.title }}</h1>
         <p>{{ song.text|linebreaks }}</p>
     </div>
