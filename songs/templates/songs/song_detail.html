@@ -16,4 +16,13 @@
         <h1>{{ song.title }}</h1>
         <p>{{ song.text|linebreaks }}</p>
     </div>
+    <hr>
+    {% for video in song.videos.all %}
+        <div class="video">
+            <div>{{ video.title }}</div>
+            <div class='link'>{{ video.url }}</div>
+        </div>
+    {% empty %}
+        <p>No videos yet</p>
+    {% endfor %}
 {% endblock %}

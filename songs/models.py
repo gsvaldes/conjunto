@@ -17,3 +17,13 @@ class Song(models.Model):
 
     def __unicode__(self):
     	return self.title
+
+
+class Video(models.Model):
+    song = models.ForeignKey(Song, related_name='videos')
+    url = models.URLField()
+    title = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.title
+
