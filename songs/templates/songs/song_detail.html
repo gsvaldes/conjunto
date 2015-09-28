@@ -20,7 +20,10 @@
     {% for video in song.videos.all %}
         <div class="video">
             <div>{{ video.title }}</div>
-            <div class='link'>{{ video.url }}</div>
+            <video width="320" height="240" controls>
+                <source src="{{ video.url }}" type="video/youtube">
+
+            </video>
         </div>
     {% empty %}
         <p>No videos yet</p>
