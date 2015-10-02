@@ -20,12 +20,12 @@
     {% for video in song.videos.all %}
         <div class="video">
             <div>{{ video.title }}</div>
-            <video width="320" height="240" controls>
-                <source src="{{ video.url }}" type="video/youtube">
-
-            </video>
+            <iframe src="{{ video.url }}" width="500"  height="300">
+            </iframe>
         </div>
     {% empty %}
         <p>No videos yet</p>
     {% endfor %}
 {% endblock %}
+
+
