@@ -18,11 +18,12 @@
     </div>
     <hr>
     {% for video in song.videos.all %}
-        <div class="video">
-            <div>{{ video.title }}</div>
-            <iframe src="{{ video.url }}" width="500"  height="300">
-            </iframe>
+        <div class="embed-responsive embed-responsive-16by9">           
+            <iframe class="embed-responsive-item" src="{{ video.url }}" width="500"  height="300"></iframe>
         </div>
+        <h4 class="media-heading">{{ video.title }}</h4>
+        <p>holding description</p>
+
     {% empty %}
         <p>No videos yet</p>
     {% endfor %}
