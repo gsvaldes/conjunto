@@ -20,15 +20,24 @@ class Song(models.Model):
 
 
 class Media(models.Model):
-    song = models.ForeignKey(Song, related_name='videos')
+    VIDEO = 'VID'
+    MP3 = 'MP3'
+    PDF = 'PDF'
+    MEDIA_CHOICES = (
+        (VIDEO, 'Video'),
+        (MP3, 'MP3'),
+        (PDF, 'PDF'),
+    )
+
+    song = models.ForeignKey(Song, related_name='media_uploads')
     url = models.URLField()
     title = models.CharField(max_length=200)
+    media_type = models.CharField(max_length=3, choices=MEDIA_CHOICES)
 
     def __unicode__(self):
-    	return self.title
+        return self.title
 
-    class Meta:
-    	abstract = True
+
 
 
 class Video(models.Model):
@@ -40,11 +49,5 @@ class Video(models.Model):
         return self.title
 
 
-class MP3(models.Model):
-	song = models.ForeignKey(Song, related_name='mp3s')
-	url = models.URLField()
-	title = models.CharField(max_length=200)
 
-	def __unicode__(self):
-		return self.title
 
