@@ -38,6 +38,10 @@ class Media(models.Model):
         return self.title
 
 
+    # TODO create model helper or template tag that return proper iframe
+    # css classes, etc depending on media type
+
+
 
 
 class Video(models.Model):
